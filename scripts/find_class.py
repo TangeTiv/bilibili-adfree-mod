@@ -28,6 +28,11 @@ from __future__ import annotations
 import argparse
 import struct
 import sys
+
+try:  # 非 UTF-8 控制台（Windows 中文 GBK 等）兜底：个别符号降级为 ?，而不是抛 UnicodeEncodeError
+    sys.stdout.reconfigure(errors="replace")
+except Exception:
+    pass
 import zipfile
 
 DEX_MAGIC = b"dex\n"
@@ -108,7 +113,7 @@ def compare(apk: str, entry: str, path: str) -> int:
         return 1
 
     same = before == after
-    print(f"{entry}: 原始 {before} 类 -> 汇编后 {after} 类  {'一致 ✓' if same else '不一致 ✗'}")
+    print(f"{entry}: 原始 {before} 类 -> 汇编后 {after} 类  {'一致 OK' if same else '不一致 MISMATCH'}")
     if not same:
         print(f"差 {after - before:+d} 类。类数变化通常意味着 smali 改坏了（而不是「正常」），"
               "不要拿体积判断，也不要把这个 dex 打进包里。", file=sys.stderr)

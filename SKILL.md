@@ -79,6 +79,8 @@ agent_created: true
 
 # 阶段 0 · 前置检查
 
+> 本文件里所有 `scripts/…`、`references/…` 都相对于 **skill 根目录**。你的 cwd 不在那里时用绝对路径（skill 加载时会给出 base directory）。
+
 ```bash
 python scripts/preflight.py --apk <目标.apk>
 ```

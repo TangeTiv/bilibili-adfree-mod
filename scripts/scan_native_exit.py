@@ -44,6 +44,11 @@ import argparse
 import struct
 import sys
 
+try:  # 非 UTF-8 控制台（Windows 中文 GBK 等）兜底：个别符号降级为 ?，而不是抛 UnicodeEncodeError
+    sys.stdout.reconfigure(errors="replace")
+except Exception:
+    pass
+
 # 手机上"结束进程"的入口。默认只碰前三个：__stack_chk_fail 是栈保护，全库几十处，
 # 绝大多数与签名无关，默认一并 NOP 掉只会扩大风险面。要查它请显式 --symbols。
 DEFAULT_SYMBOLS = ("exit", "_exit", "abort")
@@ -285,7 +290,7 @@ def main() -> int:
     check = Elf(open(out, "rb").read(), out)
     left = [va for va, tgt in check.text_bl_calls() if tgt in targets]
     print(f"\n产物: {out}")
-    print(f"回读校验：剩余 exit 类调用 {len(left)} 处 {'（应为 0）' if left else '✓'}")
+    print(f"回读校验：剩余 exit 类调用 {len(left)} 处 {'（应为 0）' if left else 'OK'}")
     if left:
         print(f"  残留: {[hex(v) for v in left]}", file=sys.stderr)
         return 1

@@ -30,15 +30,22 @@
 
 ## 前置要求
 
-| 依赖 | 说明 |
-|---|---|
-| **REA**（Reverse Engineer Anything） | 必需。`npx -y rea-agents@latest setup` |
-| Node.js | 装 REA 需要 |
-| JDK 21 | REA 的 Android 分析需要 |
-| `baksmali` / `smali` 2.5.2 | dex ↔ smali 互转 |
-| `uber-apk-signer` | zipalign + 签名 |
-| Python 3.9+ | 跑本包的脚本 |
-| adb | 与设备通信 |
+| 依赖 | 说明 | 获取方式 |
+|---|---|---|
+| **REA**（Reverse Engineer Anything） | 必需，用于读取反编译后的实现 | `npx -y rea-agents@latest setup` |
+| Node.js | 装 REA 需要 | https://nodejs.org |
+| JDK 21 | REA 的 Android 分析需要 | https://adoptium.net |
+| `baksmali` / `smali` 2.5.2 | dex ↔ smali 互转 | https://github.com/baksmali/smali/releases （要 2.5.2 的 `baksmali-2.5.2.jar` 与 `smali-2.5.2.jar`） |
+| `uber-apk-signer` | zipalign + 签名 | https://github.com/patrickfav/uber-apk-signer/releases （`.jar`） |
+| Python 3.9+ | 跑本包的脚本 | https://python.org |
+| adb | 与设备通信 | Android SDK Platform-Tools，或 `apt install adb` / `brew install android-platform-tools` |
+
+装完 baksmali/smali 后建议包成命令，方便调用：
+
+```bash
+alias baksmali='java -jar /path/to/baksmali-2.5.2.jar'
+alias smali='java -jar /path/to/smali-2.5.2.jar'
+```
 
 `scripts/preflight.py` 会把缺哪一项直接报出来，不用挨个试。
 

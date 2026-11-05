@@ -39,6 +39,11 @@ import re
 import shutil
 import subprocess
 import sys
+
+try:  # 非 UTF-8 控制台（Windows 中文 GBK 等）兜底：个别符号降级为 ?，而不是抛 UnicodeEncodeError
+    sys.stdout.reconfigure(errors="replace")
+except Exception:
+    pass
 import time
 import xml.etree.ElementTree as ET
 
