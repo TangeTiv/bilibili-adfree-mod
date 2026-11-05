@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# 运行产物（脚本可能在本目录生成）
+verify_out/
+*.log
+
+# 绝不要提交：安装包、钥匙、反编译产物
+*.apk
+*.jks
+*.keystore
+*.dex
+*.so
+smali_*/
+out*/
