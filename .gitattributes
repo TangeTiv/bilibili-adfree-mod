@@ -1,0 +1,4 @@
+# 统一用 LF：脚本在 Windows 上跑，但仓库要跨平台一致
+* text=auto eol=lf
+*.png binary
+*.jpg binary
