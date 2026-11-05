@@ -53,7 +53,15 @@ alias smali='java -jar /path/to/smali-2.5.2.jar'
 
 ## 怎么用
 
-把这个目录放进你的 skills 目录（例如 `~/.workbuddy/skills/bilibili-adfree-mod/`），然后对 Agent 说：
+把这个目录放进你所用的 Agent 的 skills 目录：
+
+| 平台 | 路径 |
+|---|---|
+| WorkBuddy | `~/.workbuddy/skills/bilibili-adfree-mod/` |
+| Claude Code | `~/.claude/skills/bilibili-adfree-mod/` |
+| 其他 | 见各自文档；核心是让 Agent 能读到 `SKILL.md` |
+
+然后对 Agent 说：
 
 > 用 bilibili-adfree-mod 这个技能，帮我把手机上的 B 站去广告
 

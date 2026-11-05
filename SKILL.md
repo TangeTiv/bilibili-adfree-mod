@@ -44,7 +44,17 @@ agent_created: true
 
 1. 目标设备 serial（`rea list-adb-devices`），是否接受覆盖安装。
 2. 是否接受"应用商店更新失效、部分依赖签名的功能可能异常"。
-3. 有没有 keystore。没有就生成一个并要求用户备份——**同一个 keystore 才能覆盖安装、保住登录态**。
+3. 有没有 keystore。没有就生成一个并要求用户备份——**同一个 keystore 才能覆盖安装、保住登录态**：
+
+```bash
+keytool -genkeypair -v -keystore mod.jks -alias mod -keyalg RSA -keysize 2048 \
+  -validity 10000 -storepass <pass> -keypass <pass> \
+  -dname "CN=Mod, OU=Personal, O=Local, C=CN"
+```
+
+`-validity 10000`（约 27 年）不能省，Android 要求签名证书有效期足够长，太短会在安装时被拒。
+
+生成后**立刻告诉用户这个文件不能丢**：丢了就没法覆盖安装，只能卸载重装，登录态全没。
 
 ## 硬性约束
 
